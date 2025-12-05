@@ -30,23 +30,35 @@ public class Auth {
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
         
-        String jti = UUID.randomUUID().toString();
-        long expirationTime = System.currentTimeMillis() + 3600_000; // 1小时后过期
+        String jti = genJti();
+        long exp=getExp();
 
         return JWT.create()
                 .withClaim("id", id)
                 .withClaim("jti", jti)
-                .withExpiresAt(new Date(expirationTime))
+                .withClaim("exp", exp)
                 .sign(algorithm);
     }
-
+    // 生成jti
+    public static String genJti() {
+       String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            int index = random.nextInt(chars.length());
+            sb.append(chars.charAt(index));
+        }
+        long timestamp = System.currentTimeMillis();
+        sb.append("_").append(timestamp);
+        return sb.toString();
+    }
     // 获取uid
     public static String getUid(){
         return UUID.randomUUID().toString().replace("-", "");
     }
 
     // 获取过期时间(秒级)1个月过期
-    public static long getExpireTime(){
+    public static long getExp(){
         return System.currentTimeMillis()/1000 + (3600*24*30);
     }
 }
