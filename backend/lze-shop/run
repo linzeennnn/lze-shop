@@ -1,0 +1,2 @@
+#!/bin/bash
+java -jar target/lze-shop-0.0.1-SNAPSHOT.jar

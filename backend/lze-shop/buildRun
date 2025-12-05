@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# -------------------------------------------
+# 临时打包并运行 Spring Boot JAR
+# 使用方法: ./run.sh [skipTests]
+# 例如: ./run.sh true  -> 跳过测试
+# -------------------------------------------
+
+# 项目根目录（当前目录）
+PROJECT_DIR=$(pwd)
+
+# 是否跳过测试
+SKIP_TESTS=$1
+if [ "$SKIP_TESTS" == "true" ]; then
+    MVN_CMD="mvn clean package -DskipTests"
+else
+    MVN_CMD="mvn clean package"
+fi
+
+echo "===================="
+echo "Step 1: 打包项目"
+echo "命令: $MVN_CMD"
+echo "===================="
+$MVN_CMD
+
+# 找到最新生成的 JAR 文件
+JAR_FILE=$(find $PROJECT_DIR/target -name "*.jar" | sort -r | head -n 1)
+
+if [ ! -f "$JAR_FILE" ]; then
+    echo "❌ 没有找到 JAR 文件，打包失败！"
+    exit 1
+fi
+
+echo "===================="
+echo "Step 2: 运行 JAR 文件"
+echo "文件: $JAR_FILE"
+echo "===================="
+
+# 运行 JAR（可以加上自定义 JVM 参数）
+java -jar "$JAR_FILE"
+
