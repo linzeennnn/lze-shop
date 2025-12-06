@@ -1,11 +1,11 @@
 package com.lze_shop.lze_shop.common.util;
 
-import java.util.Date;
+
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import java.util.Random;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.lze_shop.lze_shop.common.classes.Config;
@@ -25,14 +25,9 @@ public class Auth {
     }
 
     // 静态方法可以直接调用
-    public static String genJwt(String id){
+    public static String genJwt(long id,String jti,long exp){
         String secretKey = staticConfig.getSecretKey();
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
-
-        
-        String jti = genJti();
-        long exp=getExp();
-
         return JWT.create()
                 .withClaim("id", id)
                 .withClaim("jti", jti)
@@ -53,9 +48,15 @@ public class Auth {
         return sb.toString();
     }
     // 获取uid
-    public static String getUid(){
-        return UUID.randomUUID().toString().replace("-", "");
+    public static long getUid() {
+          long id;
+    do {
+        UUID uuid = UUID.randomUUID();
+        id = Math.abs(uuid.getMostSignificantBits() ^ uuid.getLeastSignificantBits());
+    } while (id == 0); // 保证 id 不为 0
+    return id;
     }
+
 
     // 获取过期时间(秒级)1个月过期
     public static long getExp(){
