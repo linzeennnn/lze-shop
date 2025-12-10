@@ -37,4 +37,6 @@ public class User {
 
     @Column(length = 64)
     private String jti; // varchar(64), nullable
+
+    
 }

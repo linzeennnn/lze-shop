@@ -4,4 +4,5 @@ import lombok.Data;
 @Data
 public class RegSend {
     private String token;
+    private String username;
 }

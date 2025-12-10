@@ -6,11 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lze_shop.lze_shop.repository.user.*;
 import com.lze_shop.lze_shop.common.util.*;
+import com.lze_shop.lze_shop.common.classes.response;
 @Service
 public class RegService {
     @Autowired
     private UserRepo userRepo;
-public RegSend register(RegRec rec){
+public response<RegSend> register(RegRec rec){
+    response<RegSend> res;
+    String phone=rec.getPhone();
+    if(userRepo.existsByPhone(phone)){
+        res=new response<>(400,"手机号已被注册",null);
+        return res;
+    }
     User newUser=new User();
     long id=Auth.getUid();
     String jti=Auth.genJti();
@@ -20,7 +27,7 @@ public RegSend register(RegRec rec){
     newUser.setExp(exp);
     newUser.setUpdatedAt(now);
     newUser.setCreatedAt(now);
-    newUser.setPhone(rec.getPhone());
+    newUser.setPhone(phone);
     newUser.setPassword(rec.getPassword());
     newUser.setUsername(rec.getUsername());
     newUser.setJti(jti);
@@ -28,6 +35,8 @@ public RegSend register(RegRec rec){
     String token=Auth.genJwt(id, jti, exp);
     RegSend send=new RegSend();
     send.setToken(token);
-    return send;
+    send.setUsername(rec.getUsername());
+    res=new response<>(200,"注册成功",send);
+    return res;
 }
 }

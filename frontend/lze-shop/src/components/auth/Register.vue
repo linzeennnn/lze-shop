@@ -39,9 +39,9 @@ function register() {
     .then(data => {
         if(data.code==200){
             notify.normal(data.msg)
-            global.username.value=data.data.username
+            global.username=data.data.username
             global.token=data.data.token
-            global.saveUserData();
+            global.SaveUserData();
         }else{
             notify.err(data.msg)
         }
