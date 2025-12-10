@@ -1,6 +1,19 @@
+<template>
+    <div>
+    <input type="text" placeholder="手机号" class="auth-input" 
+    v-model="phone" @keydown="handleKeyDown"></input>
+    <input type="text" placeholder="用户名" class="auth-input"
+     v-model="username" @keydown="handleKeyDown"></input>
+    <input type="password" placeholder="密码" class="auth-input" 
+    v-model="password" @keydown="handleKeyDown"></input>
+    <button class="auth-btn" @click="register">注册</button>
+    </div>
+</template>
 <script setup>
 import { ref } from 'vue';
 import { useGlobal } from '../../store/global';
+import { useNotifyStore } from '../../store/notify';
+const notify=useNotifyStore()
 const phone = ref('');
 const username = ref('');
 const password = ref('');
@@ -24,21 +37,17 @@ function register() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('注册返回结果:', data);
+        if(data.code==200){
+            notify.normal(data.msg)
+            global.username.value=data.data.username
+            global.token=data.data.token
+            global.saveUserData();
+        }else{
+            notify.err(data.msg)
+        }
     })
     .catch(error => {
         console.error('注册出错:', error);
     });
 }
 </script>
-<template>
-    <div>
-    <input type="text" placeholder="手机号" class="auth-input" 
-    v-model="phone" @keydown="handleKeyDown"></input>
-    <input type="text" placeholder="用户名" class="auth-input"
-     v-model="username" @keydown="handleKeyDown"></input>
-    <input type="password" placeholder="密码" class="auth-input" 
-    v-model="password" @keydown="handleKeyDown"></input>
-    <button class="auth-btn" @click="register">注册</button>
-    </div>
-</template>
