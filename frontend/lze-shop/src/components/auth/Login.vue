@@ -14,9 +14,11 @@
 <script setup>
 import { ref } from 'vue';
 import { useNotifyStore } from '../../store/notify';
+import { useGlobal } from '../../store/global';
 const notify=useNotifyStore();
 const phone =ref("")
 const password=ref("")
+const global=useGlobal()
 const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
     login();
@@ -37,9 +39,9 @@ function login(){
     .then(data => {
         if(data.code==200){
             notify.normal(data.msg)
-            global.username.value=data.data.username
+            global.username=data.data.username
             global.token=data.data.token
-            global.saveUserData();
+            global.SaveUserData();
         }else{
             notify.err(data.msg)
         }

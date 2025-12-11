@@ -10,4 +10,5 @@ import org.springframework.stereotype.Component;
 public class Config {
     private String secretKey;
     private int maxSize;
+    private String filePath;
 }
