@@ -22,7 +22,7 @@
               <label>密码</label>
               <input type="password" class="form-control" v-model="password" required />
             </div>
-            <small class="form-text text-muted">继续即表示您同意 Simplecoding 的使用条款及隐私政策。</small>
+            <small class="form-text text-muted">继续即表示您同意lze-mall的使用条款及隐私政策。</small>
             <button type="submit" class="btn btn-primary mt-2 py-0">
               登录
               <div v-if="loading" class="spinner-border spinner-border-sm" role="status">
@@ -31,10 +31,10 @@
             </button>
           </form>
           <hr />
-          <small class="form-text text-muted pt-2 pl-4 text-center">还没有 Simplecoding 账号？</small>
+          <small class="form-text text-muted pt-2 pl-4 text-center">还没有lze-mall账号？</small>
           <p class="text-center">
-            <router-link :to="{ name: 'Signup' }" class="btn btn-dark text-center mx-auto px-5 py-1 mb-2">
-              创建您的 Simplecoding 账号
+            <router-link :to="{ name: 'Signup' }" class="btn  btn-primary text-center mx-auto px-5 py-1 mb-2">
+              创建您的lze-mall账号
             </router-link>
           </p>
         </div>

@@ -47,7 +47,7 @@
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center">已经有账号？</small>
           <p class="text-center">
-            <router-link class="btn btn-dark text-center mx-auto px-5 py-1 mb-2" :to="{ name: 'Signin' }">
+            <router-link class="btn btn-primary text-center mx-auto px-5 py-1 mb-2" :to="{ name: 'Signin' }">
               立即登录
             </router-link>
           </p>

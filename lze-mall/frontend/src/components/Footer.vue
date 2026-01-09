@@ -4,22 +4,8 @@
       <div className="row">
         <div className="col-sm-12">
           <div className="about">
-            <div className="social-media">
-              <ul className="social-list">
-               <li><a href="https://www.douyin.com/" target="_blank">
-  <img src="https://www.douyin.com/favicon.ico" />
-</a></li>
-
-
-<li><a href="https://weibo.com/" target="_blank">
-  <img src="https://weibo.com/favicon.ico" />
-</a></li>
-
-<li><a href="https://www.xiaohongshu.com/" target="_blank">
-  <img src="https://www.xiaohongshu.com/favicon.ico" />
-</a></li>
-              </ul>
-            </div>
+                <p>本商场系统为林泽恩 java项目演示</p>
+                <p>禁止搬运,抄袭!</p>
           </div>
         </div>
       </div>
@@ -45,6 +31,8 @@ export default {
 
 <style>
 .social-list {
+  font-weight: bold;
+  flex-direction: column;
   display: flex;
   list-style: none;
   justify-content: center;
@@ -75,7 +63,8 @@ footer.nb-footer .about {
 }
 
 footer.nb-footer .about p {
-  font-size: 13px;
+  font-weight: bold;
+  font-size: 15px;
   color: #999;
   margin-top: 0px;
 }
